@@ -24,7 +24,7 @@ namespace Blackjack
 
       return score;
     }
-    public static void Main(string[] args)
+    public static void Main()
     {
       //declare dealer and player hand lists
       var dealerHand = new List<Card>();
@@ -48,8 +48,6 @@ namespace Blackjack
       var hit = true;
       var totalP = Total(playerHand);
       var totalD = Total(dealerHand);
-
-
       //display user cards and total
       Console.WriteLine($"Player, you have the {playerHand[0].Rank} of {playerHand[0].Suit} and {playerHand[1].Rank} of {playerHand[1].Suit}.");
       Console.WriteLine($"Your total is {totalP}.");
@@ -178,9 +176,11 @@ namespace Blackjack
           dealerTurn = false;
         }
       }
+      Blackjack.Program2.Game();
     }
   }
 }
+
 
 
 
