@@ -39,6 +39,7 @@ namespace Blackjack
       var totalP = Total(playerHand);
       var totalD = Total(dealerHand);
       //display user cards and total
+      Console.WriteLine($"Dealer's second card is the {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
       Console.WriteLine($"Player, you have the {playerHand[0].Rank} of {playerHand[0].Suit} and {playerHand[1].Rank} of {playerHand[1].Suit}.");
       Console.WriteLine($"Your total is {totalP}.");
       //while loop to run as long as hit == true
