@@ -14,16 +14,6 @@ namespace Blackjack
       }
       return total;
     }
-    public static int GetScore(List<Card> Hand)
-    {
-      var score = 0;
-      for (var i = 2; i < Hand.Count; i++)
-      {
-        score = Total(Hand) + Hand[i].GetValue();
-      }
-
-      return score;
-    }
     public static void Main()
     {
       //declare dealer and player hand lists
@@ -71,34 +61,43 @@ namespace Blackjack
           totalP = totalP + playerHand[playerLoop].GetValue();
           Console.WriteLine($"Player, you have been dealt the {playerHand[playerLoop].Rank} of {playerHand[playerLoop].Suit}.");
           Console.WriteLine($"Player total is now {totalP}.");
+          if (totalP > 21)
+          {
+            Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
+            Console.WriteLine($"Dealer total is {totalD}.");
+            hit = false;
+          }
+          else if (totalP == 21)
+          {
+            Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
+            hit = false;
+          }
+          else
+          {
+            hit = true;
+          }
         }
         else if (totalP > 21)
         {
-          Console.WriteLine("Bust! Dealer wins.");
-          Console.WriteLine("Thank you for playing!");
+          Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
+          Console.WriteLine($"Dealer total is {totalD}.");
           hit = false;
         }
-        // else if (totalP == 21)
-        // {
-        //   hit = false;
-        // }
+        else if (totalP == 21)
+        {
+          Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
+          hit = false;
+        }
         else
         {
           Console.WriteLine($"Player stands. Player total is now {totalP}.");
           Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
           hit = false;
         }
-
       }
+
       var dealerTurn = true;
       var dealerLoop = 1;
-      Console.WriteLine($"Dealer, you have been dealt the {dealerHand[dealerLoop].Rank} of {dealerHand[dealerLoop].Suit}.");
-      // if (totalP == 21)
-      // {
-      //   Console.WriteLine("BlackJack! You win!");
-      //   Console.WriteLine("Thank you for playing!");
-      // }
-
       while (dealerTurn == true)
       {
         if (totalD <= 16)
@@ -106,17 +105,9 @@ namespace Blackjack
           dealerLoop++;
           Console.WriteLine($"Dealer total is {totalD}. Dealer automatically hits.");
           dealerHand.Add(gameDeck.DealCard());
+          Console.WriteLine($"Dealer, you have been dealt the {dealerHand[dealerLoop].Rank} of {dealerHand[dealerLoop].Suit}.");
           totalD = totalD + dealerHand[dealerLoop].GetValue();
           Console.WriteLine($"Dealer total is now {totalD}.");
-        }
-        else if (totalD < 18)
-        {
-          dealerLoop++;
-          Console.WriteLine($"Dealer total is {totalD}. Dealer decides to hit.");
-          dealerHand.Add(gameDeck.DealCard());
-          totalD = totalD + dealerHand[dealerLoop].GetValue();
-          Console.WriteLine($"Dealer total is now {totalD}.");
-
         }
         else if (totalD > 21)
         {
@@ -151,6 +142,12 @@ namespace Blackjack
         else if (((totalD == 21) && (totalP == 21)) || (totalD == totalP))
         {
           Console.WriteLine("Tie Game!.");
+          Console.WriteLine("Thank you for playing!");
+          dealerTurn = false;
+        }
+        else if (totalP > 21)
+        {
+          Console.WriteLine("Bust! Dealer wins.");
           Console.WriteLine("Thank you for playing!");
           dealerTurn = false;
         }
