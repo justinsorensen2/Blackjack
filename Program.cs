@@ -77,17 +77,6 @@ namespace Blackjack
             hit = true;
           }
         }
-        else if (totalP > 21)
-        {
-          Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
-          Console.WriteLine($"Dealer total is {totalD}.");
-          hit = false;
-        }
-        else if (totalP == 21)
-        {
-          Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
-          hit = false;
-        }
         else
         {
           Console.WriteLine($"Player stands. Player total is now {totalP}.");
@@ -112,24 +101,6 @@ namespace Blackjack
         else if (totalD > 21)
         {
           Console.WriteLine("Dealer Bust! Player wins.");
-          Console.WriteLine("Thank you for playing!");
-          dealerTurn = false;
-        }
-        else if (totalD > 21)
-        {
-          Console.WriteLine("Dealer Bust! Player wins.");
-          Console.WriteLine("Thank you for playing!");
-          dealerTurn = false;
-        }
-        else if (totalD > 21)
-        {
-          Console.WriteLine("Dealer Bust! Player wins.");
-          Console.WriteLine("Thank you for playing!");
-          dealerTurn = false;
-        }
-        else if (((totalD == 21) && (totalP == 21)) || (totalD == totalP))
-        {
-          Console.WriteLine("Tie Game!.");
           Console.WriteLine("Thank you for playing!");
           dealerTurn = false;
         }
@@ -167,7 +138,7 @@ namespace Blackjack
             Console.WriteLine($"Dealer stands.");
             Console.WriteLine($"Dealer total is now {totalD}.");
             Console.WriteLine($"Player total is now {totalP}.");
-            Console.WriteLine($"Dealer wins!!");
+            Console.WriteLine($"Dealer wins!! You lose.");
           }
           Console.WriteLine("Thank you for playing!");
           dealerTurn = false;
