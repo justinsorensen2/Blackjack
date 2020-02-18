@@ -9,9 +9,6 @@ namespace Blackjack
     public string Rank { get; set; }
     //suit
     public string Suit { get; set; }
-    //color
-    public string Color { get; set; }
-
     //value
     public int Value { get; set; }
 

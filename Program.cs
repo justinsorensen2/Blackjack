@@ -14,9 +14,47 @@ namespace Blackjack
       }
       return total;
     }
-
+    public static void DisplayHand(List<Card> Hand)
+    {
+      for (int i = 0; i < Hand.Count; i++)
+      {
+        Console.WriteLine($"{Hand[i].DisplayCard()}");
+      }
+    }
+    // public static int SetAceValue(List<Card> Hand)
+    // {
+    //   var aceValue = 0;
+    //   for (var i = 0; i < Hand.Count; i++)
+    //   {
+    //     if (Hand[i].GetValue() == 11)
+    //     {
+    //       Console.WriteLine($"You have been dealt an Ace. You may set its value to one(1) or eleven(11).");
+    //       Console.WriteLine($"Please enter the desired value. Valid entries are 1 or 11.");
+    //       aceValue = int.Parse(Console.ReadLine());
+    //       if (aceValue != 1 && aceValue != 11)
+    //       {
+    //         Console.WriteLine($"That is not a valid selection. Pease try again.");
+    //         aceValue = int.Parse(Console.ReadLine());
+    //       }
+    //       else if (aceValue == 11)
+    //       {
+    //         return 11;
+    //       }
+    //       else
+    //       {
+    //         return 1;
+    //       }
+    //     }
+    //     else
+    //     {
+    //       return Hand[i].GetValue();
+    //     }
+    //   }
+    // }
     public static void Main()
     {
+      //clear the console at the beginning of each game
+      Console.Clear();
       //declare dealer and player hand lists
       var dealerHand = new List<Card>();
       var playerHand = new List<Card>();
@@ -41,7 +79,8 @@ namespace Blackjack
       var totalD = Total(dealerHand);
       //display user cards and total
       Console.WriteLine($"Dealer's second card is the {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
-      Console.WriteLine($"Player, you have the {playerHand[0].Rank} of {playerHand[0].Suit} and {playerHand[1].Rank} of {playerHand[1].Suit}.");
+      Console.WriteLine($"Player, you have the:");
+      DisplayHand(playerHand);
       Console.WriteLine($"Your total is {totalP}.");
       //check for blackjack and set var = true, if blackjack exists
       var pBlackjack = false;
@@ -75,7 +114,8 @@ namespace Blackjack
           Console.WriteLine($"Player total is now {totalP}.");
           if (totalP > 21)
           {
-            Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
+            Console.WriteLine($"Dealer has:");
+            DisplayHand(dealerHand);
             Console.WriteLine($"Dealer total is {totalD}.");
             hit = false;
           }
@@ -92,7 +132,8 @@ namespace Blackjack
         else
         {
           Console.WriteLine($"Player stands. Player total is now {totalP}.");
-          Console.WriteLine($"Dealer has {dealerHand[0].Rank} of {dealerHand[0].Suit} and {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
+          Console.WriteLine($"Dealer has:");
+          DisplayHand(dealerHand);
           hit = false;
         }
       }
@@ -107,7 +148,7 @@ namespace Blackjack
       {
         dBlackjack = false;
       }
-
+      // run dealer turn until dealer has at least 17
       var dealerLoop = 1;
       while (dBlackjack == false)
       {
@@ -125,17 +166,18 @@ namespace Blackjack
           dBlackjack = true;
         }
       }
-      if (totalD > 21 && totalP <= 21)
-      {
-        Console.WriteLine("Dealer Bust! Player wins.");
-      }
-      else if ((pBlackjack = true) && (dBlackjack = false))
+      //check win conditions
+      if ((pBlackjack = true) && (dBlackjack = false))
       {
         Console.WriteLine("Blackjack! You win! Congrats!");
       }
       else if ((pBlackjack = false) && (dBlackjack = true))
       {
         Console.WriteLine("Blackjack! Dealer wins. You lose.");
+      }
+      else if (totalD > 21 && totalP <= 21)
+      {
+        Console.WriteLine("Dealer Bust! Player wins.");
       }
       else if (totalD == 21 && totalP != 21)
       {
@@ -166,6 +208,7 @@ namespace Blackjack
           Console.WriteLine($"Dealer wins!! You lose.");
         }
       }
+      //thank player and call method to ask if they want to play again
       Console.WriteLine("Thank you for playing!");
       Blackjack.Program2.Game();
     }
