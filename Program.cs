@@ -14,6 +14,7 @@ namespace Blackjack
       }
       return total;
     }
+
     public static void Main()
     {
       //declare dealer and player hand lists

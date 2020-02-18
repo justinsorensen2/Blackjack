@@ -5,14 +5,17 @@ namespace Blackjack
 {
   public class Card
   {
-    //value
-    public int Value { get; set; }
     //rank
     public string Rank { get; set; }
     //suit
     public string Suit { get; set; }
     //color
     public string Color { get; set; }
+
+    //value
+    public int Value { get; set; }
+
+
     // display the card -- METHOD
     public string DisplayCard()
     {
