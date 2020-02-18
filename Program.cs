@@ -30,8 +30,8 @@ namespace Blackjack
 
       //deal first 4 cards and add totals
       dealerHand.Add(gameDeck.DealCard());
-      dealerHand.Add(gameDeck.DealCard());
       playerHand.Add(gameDeck.DealCard());
+      dealerHand.Add(gameDeck.DealCard());
       playerHand.Add(gameDeck.DealCard());
 
       // create var to hold truth val and vars to hold totals
@@ -42,10 +42,20 @@ namespace Blackjack
       Console.WriteLine($"Dealer's second card is the {dealerHand[1].Rank} of {dealerHand[1].Suit}.");
       Console.WriteLine($"Player, you have the {playerHand[0].Rank} of {playerHand[0].Suit} and {playerHand[1].Rank} of {playerHand[1].Suit}.");
       Console.WriteLine($"Your total is {totalP}.");
+      //check for blackjack and set var = true, if blackjack exists
+      var pBlackjack = false;
+      if (totalP == 21)
+      {
+        pBlackjack = true;
+      }
+      else
+      {
+        pBlackjack = false;
+      }
       //while loop to run as long as hit == true
       //allowing player to hit or stand and display totals
       var playerLoop = 1;
-      while (hit == true)
+      while (pBlackjack == false && hit == true)
       {
         playerLoop++;
         Console.WriteLine($"Player, would you like to hit(H) or stand(S)? Valid entries are H or S.");
@@ -85,10 +95,20 @@ namespace Blackjack
           hit = false;
         }
       }
+      // set var to hold dealer Blackjack condition, check for Blackjack conditions with player
+      var dBlackjack = true;
+      if ((totalD == 21) && (pBlackjack = false))
+      {
+        Console.WriteLine("Blackjack! Dealer wins. You lose.");
+        dBlackjack = true;
+      }
+      else
+      {
+        dBlackjack = false;
+      }
 
-      var dealerTurn = true;
       var dealerLoop = 1;
-      while (dealerTurn == true)
+      while (dBlackjack == false)
       {
         if (totalD <= 16)
         {
@@ -99,52 +119,53 @@ namespace Blackjack
           totalD = totalD + dealerHand[dealerLoop].GetValue();
           Console.WriteLine($"Dealer total is now {totalD}.");
         }
-        else if (totalD > 21)
+        else
         {
-          Console.WriteLine("Dealer Bust! Player wins.");
-          Console.WriteLine("Thank you for playing!");
-          dealerTurn = false;
+          dBlackjack = true;
         }
-        // else if ((totalD == 21) && (totalP != 21))
-        // {
-        //   Console.WriteLine("Blackjack! Dealer wins.");
-        //   Console.WriteLine("Thank you for playing!");
-        //   dealerTurn = false;
-        // }
-        else if (((totalD == 21) && (totalP == 21)) || (totalD == totalP))
+      }
+      if (totalD > 21 && totalP <= 21)
+      {
+        Console.WriteLine("Dealer Bust! Player wins.");
+      }
+      else if ((pBlackjack = true) && (dBlackjack = false))
+      {
+        Console.WriteLine("Blackjack! You win! Congrats!");
+      }
+      else if ((pBlackjack = false) && (dBlackjack = true))
+      {
+        Console.WriteLine("Blackjack! Dealer wins. You lose.");
+      }
+      else if (totalD == 21 && totalP != 21)
+      {
+        Console.WriteLine("Dealer wins! You lose.");
+      }
+      else if (totalD == totalP)
+      {
+        Console.WriteLine("It's a push!");
+      }
+      else if (totalP > 21 && totalD <= 21)
+      {
+        Console.WriteLine("Bust! Dealer wins.");
+      }
+      else
+      {
+        if (totalD < totalP)
         {
-          Console.WriteLine("Tie Game!.");
-          Console.WriteLine("Thank you for playing!");
-          dealerTurn = false;
-        }
-        else if (totalP > 21)
-        {
-          Console.WriteLine("Bust! Dealer wins.");
-          Console.WriteLine("Thank you for playing!");
-          dealerTurn = false;
+          Console.WriteLine($"Dealer stands.");
+          Console.WriteLine($"Dealer total is now {totalD}.");
+          Console.WriteLine($"Player total is now {totalP}.");
+          Console.WriteLine($"Player wins!!");
         }
         else
         {
-          var compD = 21 - totalD;
-          var compP = 21 - totalP;
-          if (compP < compD)
-          {
-            Console.WriteLine($"Dealer stands.");
-            Console.WriteLine($"Dealer total is now {totalD}.");
-            Console.WriteLine($"Player total is now {totalP}.");
-            Console.WriteLine($"Player wins!!");
-          }
-          else
-          {
-            Console.WriteLine($"Dealer stands.");
-            Console.WriteLine($"Dealer total is now {totalD}.");
-            Console.WriteLine($"Player total is now {totalP}.");
-            Console.WriteLine($"Dealer wins!! You lose.");
-          }
-          Console.WriteLine("Thank you for playing!");
-          dealerTurn = false;
+          Console.WriteLine($"Dealer stands.");
+          Console.WriteLine($"Dealer total is now {totalD}.");
+          Console.WriteLine($"Player total is now {totalP}.");
+          Console.WriteLine($"Dealer wins!! You lose.");
         }
       }
+      Console.WriteLine("Thank you for playing!");
       Blackjack.Program2.Game();
     }
   }
