@@ -10,7 +10,7 @@ namespace Blackjack
       var total = 0;
       for (var i = 0; i < Hand.Count; i++)
       {
-        total += Hand[i].GetValue();
+        total += Hand[i].Value;
       }
       return total;
     }

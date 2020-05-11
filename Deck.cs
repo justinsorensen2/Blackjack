@@ -23,17 +23,17 @@ namespace Blackjack
 
     public void CreateDeck()
     {
-      var suit = new List<string>() { "of Clubs", "of Diamonds", "of Spades", "of Hearts" };
-      var rank = new List<string>() { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
-      var value = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+      var suits = new List<string>() { "Clubs", "Diamonds", "Spades", "Hearts" };
+      var ranks = new List<string>() { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
+      var values = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 
-      for (var i = 0; i < suit.Count; i++)
+      foreach (var suit in suits)
       {
-        for (var n = 0; n < rank.Count; n++)
+        foreach (var rank in ranks)
         {
           var card = new Card();
-          card.Rank = rank[n];
-          card.Suit = suit[i];
+          card.Rank = rank;
+          card.Suit = suit;
           Cards.Add(card);
           if (card.Rank == "Jack" || card.Rank == "Queen" || card.Rank == "King")
           {
